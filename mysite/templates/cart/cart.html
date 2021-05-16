@@ -5,7 +5,7 @@
         <p></p>
         <div class="row">
             <div class="col-sm-8">
-                {% for i in test %}
+                {% for cart_item in cart_items %}
 
                     <div class="col-sm-12">
                         <div class="card mb-4" style="max-width: 800px;">
@@ -24,14 +24,15 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">Un Jardin sur la Lagune Eau de toilette</h5>
-                                        <p class="card-text">$ 230.00</p>
-                                        <p class="card-text black-text">Total price: $ 230.00</p>
+                                        <h5 class="card-title">{{ cart_item.name }}</h5>
+                                        <p class="card-text">$ {{ cart_item.price }}.00</p>
+                                        <p class="card-text black-text">Total price: $
+                                            {% widthratio cart_item.price 1 cart_item.quantity %}.00</p>
                                         <form style="margin-left: 1rem">
                                             <div class="row">
                                                 <div class="form-outline" style="width: 30%">
                                                     <input type="number" id="typeNumber" class="form-control"
-                                                           value="1"/>
+                                                           value="{{ cart_item.quantity }}"/>
                                                 </div>
                                                 <button type="submit" class="btn btn-dark btn-rounded btn-sm"
                                                         data-mdb-ripple-color="dark" style="margin-bottom: 1rem">
@@ -52,14 +53,14 @@
                 <div class="col-sm-12">
                     <div class="card mb-4" style="max-width: 800px;">
                         <div class="card-header text-center">
-                            Total: $1000.00
+                            Total: $ {{ total_price }}.00
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="card mb-4 " style="max-width: 800px;">
+                    <div class="card mb-4 align-items-center" style="max-width: 800px;">
                         <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                                style="width: 50%s">
+                                style="width: 100%">
                             Checkout
                         </button>
                     </div>
