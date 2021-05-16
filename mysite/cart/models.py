@@ -11,6 +11,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     # total_price = models.IntegerField(default=1)
     user_id = models.IntegerField(default=0)
+    pic_address = models.CharField(max_length=300, default='')
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

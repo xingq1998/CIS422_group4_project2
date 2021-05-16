@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import CartItem
 
@@ -29,9 +29,11 @@ def fetchUserCart(request):
                    })
 
 
-def addtoCart(request):
-    return HttpResponse("Hello, world. You're at the cart index.")
+def addtoCart(request, name, price, quantity):
+    CartItem.objects.create(name=name, price=price, quantity=quantity, user_id=1)
+    return HttpResponse("Add to shopping cart success.")
 
 
-def removefromCart(request):
-    return HttpResponse("Hello, world. You're at the cart index.")
+def removefromCart(request, car_item_id):
+    CartItem.objects.filter(id=car_item_id).delete()
+    return redirect('/cart/fetch_user_cart')
