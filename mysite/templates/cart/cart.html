@@ -2,6 +2,84 @@
 {% load static %}
 {% block content %}
     <div class="container">
-  <!-- Content here -->
-</div>
+        <p></p>
+        <div class="row">
+            <div class="col-sm-8">
+                {% for i in test %}
+
+                    <div class="col-sm-12">
+                        <div class="card mb-4" style="max-width: 800px;">
+                            <div class="card-header d-flex justify-content-between">
+                                Featured
+                                <a style="color: #818182;" href="#!"
+                                   role="button" class="text-center">
+                                    <i class="far fa-window-close"></i>
+                                </a>
+
+                            </div>
+                            <div class="row g-0">
+                                <div class="col-md-2">
+                                    <img class="card-img-top" style="margin: 20px"
+                                         src="{% static 'img/perfume001.jpeg' %}" alt="perfume001 img">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Un Jardin sur la Lagune Eau de toilette</h5>
+                                        <p class="card-text">$ 230.00</p>
+                                        <p class="card-text black-text">Total price: $ 230.00</p>
+                                        <form style="margin-left: 1rem">
+                                            <div class="row">
+                                                <div class="form-outline" style="width: 30%">
+                                                    <input type="number" id="typeNumber" class="form-control"
+                                                           value="1"/>
+                                                </div>
+                                                <button type="submit" class="btn btn-dark btn-rounded btn-sm"
+                                                        data-mdb-ripple-color="dark" style="margin-bottom: 1rem">
+                                                    Confirm
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <p class="card-text"><small class="text-muted">Last updated 3 mins
+                                            ago</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="col-sm-12">
+                    <div class="card mb-4" style="max-width: 800px;">
+                        <div class="card-header text-center">
+                            Total: $1000.00
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card mb-4 " style="max-width: 800px;">
+                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                                style="width: 50%s">
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card bg-light mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Notes</div>
+                    <div class="card-body text-center">
+                        <img class="card-img-top" style="margin: 20px;width:60%;"
+                             src="{% static 'img/gift-box.jpeg' %}" alt="gift box img">
+                        <h5 class="card-title">The grey box</h5>
+                        <p class="card-text">
+                            All orders are delivered in an grey box tied with a Bolduc ribbon, with the exception of
+                            certain items.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock content %}

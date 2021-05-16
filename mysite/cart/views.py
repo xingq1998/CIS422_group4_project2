@@ -7,7 +7,7 @@ def index(request):
 
 
 def fetchUserCart(request):
-    return HttpResponse("Hello, world. You're at the cart index.")
+    return render(request, 'cart/cart.html', {'test': [0, 1, 2, 3]})
 
 
 def addtoCart(request):
