@@ -9,4 +9,4 @@ import datetime
 
 
 def home(request):
-    return render(request, 'home.html', None)
+    return render(request, 'index.html', None)
