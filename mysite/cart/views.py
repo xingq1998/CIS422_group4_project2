@@ -34,6 +34,16 @@ def addtoCart(request, name, price, quantity):
     return HttpResponse("Add to shopping cart success.")
 
 
+def updateCartItem(request):
+    if request.method == 'POST':
+        post_dict = request.POST
+        print(post_dict)
+        quantity = int(post_dict.get("quantity", ""))
+        cart_item_id = int(post_dict.get("cart_item_id", 0))  # need to fix, current user id
+        CartItem.objects.filter(id=cart_item_id).update(quantity=quantity)
+        return redirect('/cart/fetch_user_cart')
+
+
 def removefromCart(request, car_item_id):
     CartItem.objects.filter(id=car_item_id).delete()
     return redirect('/cart/fetch_user_cart')

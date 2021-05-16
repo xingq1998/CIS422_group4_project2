@@ -34,7 +34,7 @@
             <ul class="navbar-nav nav-flex-icons ">
                 {#                {% if request.user.is_authenticated %}#}
                 <li class="nav-item">
-                    <a href="{% url 'cart:index' %}" class="nav-link waves-effect">
+                    <a href="{% url 'cart:fetch_user_cart' %}" class="nav-link waves-effect">
                         <span class="badge red z-depth-1 mr-1"> 1
 {#                            {{ request.user|cart_item_count }} #}
                         </span>
