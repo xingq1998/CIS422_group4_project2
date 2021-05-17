@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <p/>
+        <section class="mb-4">
+            <div class="row wow fadeIn">
+                <div class="col-6 offset-3 mb-4">
+                    <div class="card mb-4" style="max-width: 800px;">
+                        <div class="card-header text-center black-text bg-white">
+                            Register
+                        </div>
+                    </div>
+                </div>
+                <div class='col-6 offset-3'>
+                    {#                    <h1>{% trans "Login" %}</h1>#}
+                    {% if request.user.is_authenticated %}
+                        <p>You have logged in out system.</p>
+                    {% else %}
+                        <form class="login" method="POST" action="{% url 'user:signup' %}">{% csrf_token %}
+                            <div class="mb-3">
+                                <label for="loginInputUsername" class="form-label">Username</label>
+                                <input name="username" type="input" class="form-control" id="loginInputUsername">
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupInputEmail" class="form-label">Email address</label>
+                                <input name="email" type="email" class="form-control has-validation"
+                                       id="signupInputEmail"
+                                       aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginInputPwd" class="form-label">Password</label>
+                                <input name="password" type="password" class="form-control" id="loginInputPwd">
+                            </div>
+                            <button class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                                    type="submit">Sign up
+                            </button>
+                            <!-- Register buttons -->
+                            <div class="text-center">
+                                <p>or sign up with:</p>
+                                <button type="button" class="btn btn-primary btn-floating mx-1 btn-sm">
+                                    <i class="fab fa-facebook-f"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-outline-success btn-floating btn-sm"
+                                        data-mdb-ripple-color="dark">
+                                    <i class="fab fa-google"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-danger btn-floating btn-sm">
+                                    <i class="fab fa-twitter"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-dark btn-floating btn-sm">
+                                    <i class="fab fa-github"></i>
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock content %}
