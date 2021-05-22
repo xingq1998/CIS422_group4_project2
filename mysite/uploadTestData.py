@@ -10,7 +10,7 @@ This adds entries to the database with the data from the
 Test/input_clinics.csv file for testing purposes.
 
 Usage:
-    $ python upliadTestData.py
+    $ python uploadTestData.py
 
 
 """
@@ -33,6 +33,7 @@ class InputHeaders(IntEnum):
     TOTAL_STOCK = 2
     DESCRIPTION = 3
     PIC_ADDRESS = 4
+    CATEGORY = 5
 
 def createItem(data_list):
     item_obj = Item.objects.create(
@@ -41,6 +42,7 @@ def createItem(data_list):
         total_stock=data_list[InputHeaders.TOTAL_STOCK],
         description=data_list[InputHeaders.DESCRIPTION],
         pic_address=data_list[InputHeaders.PIC_ADDRESS],
+        category=data_list[InputHeaders.CATEGORY],
     )
 
     return item_obj

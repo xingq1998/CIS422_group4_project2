@@ -3,22 +3,45 @@
 {% block content %}
     <div class="container">
         <p></p>
+        <div class="top-form">
+            <form method="POST" action="">{% csrf_token %}
+                <div class="row">
+                    
+                    <div class="col-sm-3">
+                        <div class="form-item">
+                            <div class="label">Category</div>
+                            <div class="input">
+                                <select
+                                        class="form-select form-select-inline"
+                                >
+                                    {% for category in categories %}
+                                        <option value="all">{{ category }}</option>
+                                    {% endfor %} 
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2" style="margin-top: 5px; margin-bottom: 15px">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="reset" class="btn btn-light">Reset Filters</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="row">
+            
             <div class="col-sm-8">
                 {% for product in products %}
 
-                    <div class="col-sm-12">
+                    <div class="col-sm-8">
                         <div class="card mb-4" style="max-width: 800px;">
-                            <div class="card-header d-flex justify-content-between">
-                                Featured
-                                <a style="color: #818182;" href=""
-                                   role="button" class="text-center">
-                                    <i class="far fa-window-close"></i>
-                                </a>
-
-                            </div>
+                            <div class="card-header d-flex justify-content-between"></div>
                             <div class="row g-0">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <img class="card-img-top" style="margin: 20px"
                                          src="{% static product.pic_address %}" alt="perfume001 img">
                                 </div>
@@ -28,31 +51,18 @@
                                         <p class="card-text">$ {{ product.price|floatformat:2 }}</p>
                                         
 
-                                        <form method="POST" style="margin-left: 1rem"
-                                              action="">{% csrf_token %}
-                                            <div class="row">
-                                                <div class="form-outline" style="width: 30%">
-                                                    <input type="number" name="quantity" id="quantity"
-                                                           class="form-control"
-                                                           value=""/>
-                                                </div>
-                                                <button type="submit" class="btn btn-dark btn-rounded btn-sm"
-                                                        data-mdb-ripple-color="dark" style="margin-bottom: 1rem">
-                                                    Confirm
-                                                </button>
-                                                <div class="form-outline" style="width: 20%" hidden>
-                                                    <input type="number" name="cart_item_id" id="cart_item_id"
-                                                           class="form-control"
-                                                           value=""/>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                        <p class="card-text"><small class="text-muted">Last updated 3 mins
-                                            ago</small>
-                                        </p>
+                                        
+                                        <p class="card-text"><small class="text-muted">Total Stock: {{ product.total_stock }}</small></p>
+                                        <p class="card-text"><small class="text-muted">Description: {{ product.description }}</small></p>
+                                        
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">Add to cart</button>
+                                        </div>
+                                    
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
