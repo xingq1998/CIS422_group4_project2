@@ -1,5 +1,10 @@
 name,price,total_stock,description,pic_address,Category
-Product1,10.00,5,N/A,img/perfume001.jpeg,Category1
-Product2,15.00,7,N/A,img/perfume001.jpeg,Category2
-Product3,16.00,8,N/A,img/perfume001.jpeg,Category3
-Product4,17.00,9,N/A,img/perfume001.jpeg,Category4
+Blue Shirt,10.00,5,Men's Blue Shirt,img/blue-shirt.jpg,Shirts
+Green Shirt,15.00,7,Unisex Green T-Shirt,img/green-shirt.jpg,Shirts
+Red Shirt,16.00,8,Red T-Shirt,img/red-shirt.jpg,Shirts
+Yellow Shirt,17.00,9,Yellow T-Shirt,img/yellow-shirt.jpg,Shirts
+Jeans,20.00,9,Men's Regular Jeans,img/mens-jeans.jpg,Men's Jeans
+Red Jeans,25.00,7,Women's Skinny Red Jeans,img/womens-red-jeans.jpg,Women's Jeans
+Brown Jacket,35.00,9,Brown Jacket,img/brown-jacket.jpg,Jackets
+Women's Black Jacket,35.00,2,Warm Black Jacket,img/women-black-jacket.jpg,Women's Jackets
+Grey SweatPants,25.00,7,Grey Sweat Pants,img/grey-sweatpants.jpeg,Pants
