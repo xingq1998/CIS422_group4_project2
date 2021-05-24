@@ -2,3 +2,5 @@ venv/
 .idea/
 *__pycache__*
 mysite/cart/migrations/
+mysite/product/migrations/
+mysite/user/migrations/

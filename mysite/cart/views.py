@@ -8,30 +8,50 @@ def index(request):
 
 
 def cartInsert(request):
-    instances = [CartItem(name='Un Jardin sur la Lagune Eau de toilette', price=230, quantity=1, user_id=1),
-                 CartItem(name='Bright Crystal', price=118, quantity=1, user_id=1),
-                 CartItem(name='Viva La Juicy', price=50, quantity=1, user_id=1),
-                 CartItem(name='Jimmy Choo', price=173, quantity=2, user_id=1),
-                 CartItem(name='Versace Pour Femme Dylan Blue', price=235, quantity=1, user_id=1),
-                 CartItem(name='Daisy Eau So Fresh', price=549, quantity=2, user_id=1),
-                 CartItem(name='Reb\'l Fleur', price=117, quantity=1, user_id=1),
-                 ]
-    ret = CartItem.objects.bulk_create(instances)
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        instances = [CartItem(name='Palm Print Back Graphic T-shirt', price=23, quantity=1, user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz27451_blue_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     CartItem(name='Basic Crew Neck T-Shirt', price=28, quantity=1, user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz11037_white_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     CartItem(name='Crew Neck T-Shirt With Rolled Sleeves', price=15, quantity=1, user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz24161_black_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     CartItem(name='Original Man Long Sleeve 3/4 Zip Ribbed Polo', price=17, quantity=2,
+                              user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz05712_stone_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     CartItem(name='MAN Official Mesh Basketball Vest', price=25, quantity=1, user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz20752_red_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     CartItem(name='Daisy Eau So Fresh', price=59, quantity=2, user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz40053_ice%20blue_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     CartItem(name='Skinny Fit Denim Jeans', price=17, quantity=1, user_id=user_id,
+                              pic_address="https://media.boohoo.com/i/boohoo/mzz44519_mid%20blue_xl?$product_image_category_page_horizontal_filters_desktop_2x$&fmt=webp"),
+                     ]
+        ret = CartItem.objects.bulk_create(instances)
     return HttpResponse("Hello, world. cart insert success.")
 
 
 def fetchUserCart(request):
-    user_id = 1
-    cart_items = CartItem.objects.all().filter(user_id=user_id)
-    return render(request, 'cart/cart.html',
-                  {'cart_items': cart_items,
-                   'total_price': CartItem.user_total_price(user_id),
-                   })
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        cart_items = CartItem.objects.all().filter(user_id=user_id)
+        return render(request, 'cart/cart.html',
+                      {'cart_items': cart_items,
+                       'total_price': CartItem.user_total_price(user_id),
+                       })
+    else:
+        return render(request, 'cart/cart.html',
+                      {'cart_items': None,
+                       'total_price': 0,
+                       })
 
 
 def addtoCart(request, name, price, quantity):
-    CartItem.objects.create(name=name, price=price, quantity=quantity, user_id=1)
-    return HttpResponse("Add to shopping cart success.")
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        CartItem.objects.create(name=name, price=price, quantity=quantity, user_id=user_id)
+        return redirect('/cart/fetch_user_cart')
+    else:
+        return render(request, 'user/login.html')
 
 
 def updateCartItem(request):

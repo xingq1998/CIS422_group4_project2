@@ -5,8 +5,10 @@
         <p></p>
         <div class="row">
             <div class="col-sm-8">
+                {% if not request.user.is_authenticated %}
+                    <p>You haven't logged in the system.</p>
+                {% endif %}
                 {% for cart_item in cart_items %}
-
                     <div class="col-sm-12">
                         <div class="card mb-4" style="max-width: 800px;">
                             <div class="card-header d-flex justify-content-between">
@@ -20,7 +22,7 @@
                             <div class="row g-0">
                                 <div class="col-md-2">
                                     <img class="card-img-top" style="margin: 20px"
-                                         src="{% static 'img/perfume001.jpeg' %}" alt="perfume001 img">
+                                         src="{{ cart_item.pic_address }}" alt="cloth img">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
