@@ -6,7 +6,7 @@
         <div class="top-form">
             <form method="POST" action="">{% csrf_token %}
                 <div class="row">
-                    
+
                     <div class="col-sm-3">
                         <div class="form-item">
                             <div class="label">Category</div>
@@ -16,7 +16,7 @@
                                 >
                                     {% for category in categories %}
                                         <option value="all">{{ category }}</option>
-                                    {% endfor %} 
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
             </form>
         </div>
         <div class="row">
-            
+
             <div class="col-sm-8">
                 {% for product in products %}
 
@@ -49,24 +49,29 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ product.name }}</h5>
                                         <p class="card-text">$ {{ product.price|floatformat:2 }}</p>
-                                        
 
-                                        
-                                        <p class="card-text"><small class="text-muted">Total Stock: {{ product.total_stock }}</small></p>
-                                        <p class="card-text"><small class="text-muted">Description: {{ product.description }}</small></p>
-                                        
-                                        <div>
-                                            <button type="submit" class="btn btn-primary">Add to cart</button>
-                                        </div>
-                                    
+                                        <p class="card-text"><small class="text-muted">Total
+                                            Stock: {{ product.total_stock }}</small></p>
+                                        <p class="card-text"><small
+                                                class="text-muted">Description: {{ product.description }}</small></p>
+
+                                        <form method="POST" action="{% url 'cart:add_to_cart' %}">{% csrf_token %}
+                                            <input type="number" name="product_id"
+                                                   class="form-control"
+                                                   value="{{ product.id }}" hidden/>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Add to cart</button>
+                                            </div>
+                                        </form>
+
                                     </div>
-                                    
+
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
-                {% endfor %}                
+                {% endfor %}
             </div>
         </div>
     </div>

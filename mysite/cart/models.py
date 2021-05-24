@@ -5,6 +5,7 @@ from django.utils import timezone
 # Create your models here.
 
 class CartItem(models.Model):
+    product_id = models.IntegerField(default=0)
     name = models.CharField(max_length=30, default='')
     desc = models.CharField(max_length=30, default='')
     price = models.IntegerField(default=0)

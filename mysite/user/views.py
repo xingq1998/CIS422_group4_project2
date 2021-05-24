@@ -10,7 +10,7 @@ def index(request):
 
 def my_signup(request):
     if request.user.is_authenticated:
-        return render(request, 'user/signup.html', None)
+        return render(request, 'user/login.html', None)
     if request.method == 'POST':
         post_dict = request.POST
         username = post_dict.get("username", "")

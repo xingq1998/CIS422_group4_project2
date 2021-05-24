@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import CartItem
+from product.models import Item
+from django.db.models import F
 
 
 def index(request):
@@ -45,13 +47,27 @@ def fetchUserCart(request):
                        })
 
 
-def addtoCart(request, name, price, quantity):
-    if request.user.is_authenticated:
-        user_id = request.user.id
-        CartItem.objects.create(name=name, price=price, quantity=quantity, user_id=user_id)
-        return redirect('/cart/fetch_user_cart')
-    else:
+def addtoCart(request):
+    if not request.user.is_authenticated:
         return render(request, 'user/login.html')
+
+    user_id = request.user.id
+    if request.method == 'POST':
+        post_dict = request.POST
+        product_id = int(post_dict.get("product_id", "0"))
+        product = Item.objects.get(id=product_id)
+        cart_item, created = CartItem.objects.get_or_create(user_id=user_id, product_id=product_id,
+                                                            defaults={'name': product.name,
+                                                                      'desc': product.description,
+                                                                      'price': product.price,
+                                                                      'product_id': product_id,
+                                                                      'user_id': user_id,
+                                                                      'pic_address': product.pic_address,
+                                                                      'quantity': 0})
+        CartItem.objects.filter(id=cart_item.id).update(quantity=F('quantity') + 1)
+        Item.objects.filter(id=product_id).update(total_stock=F('total_stock') - 1)
+
+    return redirect('/cart/fetch_user_cart')
 
 
 def updateCartItem(request):
@@ -65,5 +81,9 @@ def updateCartItem(request):
 
 
 def removefromCart(request, car_item_id):
+    cart_item = CartItem.objects.get(id=car_item_id)
+    product_id = cart_item.product_id
     CartItem.objects.filter(id=car_item_id).delete()
+    Item.objects.filter(id=product_id).update(total_stock=F('total_stock') + cart_item.quantity)
+
     return redirect('/cart/fetch_user_cart')
