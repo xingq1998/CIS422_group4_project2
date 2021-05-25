@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        
+        <div class="row">
+
+            <div class="col-sm-8">
+                {% for order in orders %}
+                    <div class="cotainer">
+                        <p>OrderID: {{ order.order_id }}</p>
+                        <p>UserID: {{ order.user_id }}</p>
+                        <p>TotalCost: {{ order.total_cost }}</p>
+                            {% for item in order.ordereditem_set.all %}
+                                <div>
+                                    <li>ProductName: {{ item.product.name }}</li>
+                                    <li>Quantity: {{ item.quantity }}</li>
+                                    <li>Order ID: {{ item.order.order_id }}</li>
+                                </div>
+                            {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
