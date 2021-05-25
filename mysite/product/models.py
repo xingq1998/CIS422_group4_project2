@@ -1,5 +1,7 @@
-#from _typeshed import OpenTextModeUpdating
+# from _typeshed import OpenTextModeUpdating
 from django.db import models
+from django.contrib import admin
+
 
 # Create your models here.
 class Item(models.Model):
@@ -9,3 +11,11 @@ class Item(models.Model):
     description = models.CharField(default="Description unavailable", max_length=256)
     pic_address = models.CharField(max_length=300, default="")
     category = models.CharField(default="N/A", max_length=20)
+
+    @property
+    @admin.display(
+        ordering='id',
+        description='id of the product',
+    )
+    def product_id(self):
+        return self.id

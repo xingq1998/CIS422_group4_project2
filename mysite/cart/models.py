@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 
 # Create your models here.
@@ -23,3 +24,12 @@ class CartItem(models.Model):
         for item in CartItem.objects.filter(user_id=user_id):
             price += item.quantity * item.price
         return price
+
+    @property
+    @admin.display(
+        ordering='id',
+        description='id of the cart item',
+    )
+    def cart_id(self):
+        return self.id
+
