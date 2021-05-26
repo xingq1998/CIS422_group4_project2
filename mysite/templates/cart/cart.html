@@ -30,7 +30,7 @@
                                         <p class="card-text">$ {{ cart_item.product.price }}</p>
                                         <p class="card-text">Ref id: {{ cart_item.id }}</p>
                                         <p class="card-text black-text">Total price: $
-                                            {% widthratio cart_item.price 1 cart_item.quantity %}.00</p>
+                                            {% widthratio cart_item.product.price 1 cart_item.quantity %}.00</p>
                                         <form method="POST" style="margin-left: 1rem"
                                               action="{% url 'cart:update_cart_item' %}">{% csrf_token %}
                                             <div class="row">
@@ -51,8 +51,8 @@
 
                                             </div>
                                         </form>
-                                        <p class="card-text"><small class="text-muted">Last updated 3 mins
-                                            ago</small>
+                                        <p class="card-text"><small class="text-muted">Last
+                                            updated {{ cart_item.created_at }}</small>
                                         </p>
                                     </div>
                                 </div>
@@ -64,16 +64,19 @@
                 <div class="col-sm-12">
                     <div class="card mb-4" style="max-width: 800px;">
                         <div class="card-header text-center">
-                            Total: $ {{ total_price }}.00
+                            Total: $ {{ total_price }}
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="card mb-4 align-items-center" style="max-width: 800px;">
-                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                                style="width: 100%">
-                            Checkout
-                        </button>
+                        <form method="get" action="{% url 'orders:checkout' %}" style="width: 100%">
+                            <button type="submit" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                                    style="width: 100%">
+                                Checkout
+                            </button>
+                        </form>
+
                     </div>
                 </div>
             </div>

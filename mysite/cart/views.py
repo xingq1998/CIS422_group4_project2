@@ -35,10 +35,11 @@ def cartInsert(request):
 def fetchUserCart(request):
     if request.user.is_authenticated:
         user_id = request.user.id
-        cart_items = CartItem.objects.all().filter(user_id=user_id)
+        cart_items = CartItem.objects.all().filter(user_id=user_id, status=1)
+        total_price = CartItem.user_total_price(user_id)
         return render(request, 'cart/cart.html',
                       {'cart_items': cart_items,
-                       'total_price': CartItem.user_total_price(user_id),
+                       'total_price': total_price,
                        })
     else:
         return render(request, 'cart/cart.html',

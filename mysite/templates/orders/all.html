@@ -2,25 +2,69 @@
 {% load static %}
 {% block content %}
     <div class="container">
-        
+        <p></p>
         <div class="row">
-
             <div class="col-sm-8">
+                {% if not request.user.is_authenticated %}
+                    <p>You haven't logged in the system.</p>
+                {% endif %}
+
                 {% for order in orders %}
-                    <div class="cotainer">
-                        <p>OrderID: {{ order.order_id }}</p>
-                        <p>UserID: {{ order.user_id }}</p>
-                        <p>TotalCost: {{ order.total_cost }}</p>
-                            {% for item in order.ordereditem_set.all %}
-                                <div>
-                                    <li>ProductName: {{ item.product.name }}</li>
-                                    <li>Quantity: {{ item.quantity }}</li>
-                                    <li>Order ID: {{ item.order.order_id }}</li>
+                    {% for order_item in order.ordereditem_set.all %}
+                        <div class="col-sm-12">
+                            <div class="card mb-4" style="max-width: 800px;">
+                                <div class="card-header d-flex justify-content-between">
+                                    Order Items
                                 </div>
-                            {% endfor %}
+                                <div class="row g-0">
+                                    <div class="col-md-2">
+                                        <img class="card-img-top" style="margin: 20px"
+                                             src="{% static order_item.product_pic_address %}" alt="cloth img">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ order_item.product_name }}</h5>
+                                            <p class="card-text">$ {{ order_item.price }}</p>
+                                            <p class="card-text">Ref id: {{ order_item.id }}</p>
+                                            <p class="card-text black-text">Total price: $
+                                                {% widthratio order_item.price 1 order_item.quantity %}.00</p>
+                                            <p class="card-text black-text">Quantity: {{ order_item.created_at }}</p>
+                                            <p class="card-text"><small class="text-muted">Last
+                                                updated {{ order_item.created_at }}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="col-sm-12">
+                        <div class="card mb-4" style="max-width: 800px;">
+                            <div class="card-header text-center">
+                                Order Total Cost: $ {{ order.total_cost }}
+                            </div>
+                        </div>
                     </div>
+
                 {% endfor %}
+
+            </div>
+            <div class="col-sm-4">
+                <div class="card bg-light mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Notes</div>
+                    <div class="card-body text-center">
+                        <img class="card-img-top" style="margin: 20px;width:60%;"
+                             src="{% static 'img/gift-box.jpeg' %}" alt="gift box img">
+                        <h5 class="card-title">The grey box</h5>
+                        <p class="card-text">
+                            All orders are delivered in an grey box tied with a Bolduc ribbon, with the exception of
+                            certain items.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 {% endblock content %}
