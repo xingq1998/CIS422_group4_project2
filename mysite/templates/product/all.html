@@ -4,7 +4,7 @@
     <div class="container">
         <p></p>
         <div class="top-form">
-            <form method="POST" action="">{% csrf_token %}
+            <form method="POST" action="{% url 'product:all' %}">{% csrf_token %}
                 <div class="row">
 
                     <div class="col-sm-3">
@@ -13,10 +13,12 @@
                             <div class="input">
                                 <select
                                         class="form-select form-select-inline"
+                                        name = "category"
                                 >
                                     {% for category in categories %}
-                                        <option value="all">{{ category }}</option>
+                                        <option value="{{ category }}">{{ category }}</option>
                                     {% endfor %}
+
                                 </select>
                             </div>
                         </div>
@@ -26,11 +28,16 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary">Apply Filters</button>
                     </div>
-                    <div class="col-auto">
-                        <button type="reset" class="btn btn-light">Reset Filters</button>
-                    </div>
-                </div>
             </form>
+            <form method="GET" action="{% url 'product:all' %}">
+                    <div class="col-auto">
+                        <button 
+                        class="btn btn-primary"
+                        >Reset Filters</button>
+                    </div>
+            </form>
+                </div>
+            
         </div>
         <div class="row">
 
