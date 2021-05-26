@@ -56,14 +56,15 @@ def addtoCart(request):
         post_dict = request.POST
         product_id = int(post_dict.get("product_id", "0"))
         product = Item.objects.get(id=product_id)
-        cart_item, created = CartItem.objects.get_or_create(user_id=user_id, product_id=product_id,
-                                                            defaults={'name': product.name,
-                                                                      'desc': product.description,
-                                                                      'price': product.price,
-                                                                      'product_id': product_id,
-                                                                      'user_id': user_id,
-                                                                      'pic_address': product.pic_address,
-                                                                      'quantity': 0})
+        cart_item, created = CartItem.objects.get_or_create(user_id=user_id, product=product,
+                                                            defaults={
+                                                                # 'name': product.name,
+                                                                # 'desc': product.description,
+                                                                # 'price': product.price,
+                                                                # 'product_id': product_id,
+                                                                'user_id': user_id,
+                                                                # 'pic_address': product.pic_address,
+                                                                'quantity': 0})
         CartItem.objects.filter(id=cart_item.id).update(quantity=F('quantity') + 1)
         Item.objects.filter(id=product_id).update(total_stock=F('total_stock') - 1)
 
@@ -76,7 +77,9 @@ def updateCartItem(request):
         print(post_dict)
         quantity = int(post_dict.get("quantity", ""))
         cart_item_id = int(post_dict.get("cart_item_id", 0))  # need to fix, current user id
+        cart_item = CartItem.objects.get(id=cart_item_id)
         CartItem.objects.filter(id=cart_item_id).update(quantity=quantity)
+        Item.objects.filter(id=cart_item.product.id).update(total_stock=F('total_stock') + quantity)
         return redirect('/cart/fetch_user_cart')
 
 

@@ -22,12 +22,12 @@
                             <div class="row g-0">
                                 <div class="col-md-2">
                                     <img class="card-img-top" style="margin: 20px"
-                                         src="{% static cart_item.pic_address %}" alt="cloth img">
+                                         src="{% static cart_item.product.pic_address %}" alt="cloth img">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ cart_item.name }}</h5>
-                                        <p class="card-text">$ {{ cart_item.price }}.00</p>
+                                        <h5 class="card-title">{{ cart_item.product.name }}</h5>
+                                        <p class="card-text">$ {{ cart_item.product.price }}</p>
                                         <p class="card-text">Ref id: {{ cart_item.id }}</p>
                                         <p class="card-text black-text">Total price: $
                                             {% widthratio cart_item.price 1 cart_item.quantity %}.00</p>
