@@ -28,7 +28,7 @@
                                             <p class="card-text">Ref id: {{ order_item.id }}</p>
                                             <p class="card-text black-text">Total price: $
                                                 {% widthratio order_item.price 1 order_item.quantity %}.00</p>
-                                            <p class="card-text black-text">Quantity: {{ order_item.created_at }}</p>
+                                            <p class="card-text black-text">Quantity: {{ order_item.quantity }}</p>
                                             <p class="card-text"><small class="text-muted">Last
                                                 updated {{ order_item.created_at }}</small>
                                             </p>
