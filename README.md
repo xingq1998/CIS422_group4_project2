@@ -24,3 +24,7 @@ Create superusers using the createsuperuser command:
 ~/mysite $ python manage.py createsuperuser --username=joe --email=joe@example.com
 ```
 Then, setup password for superuser(administrator).
+
+Login in superuser at http://127.0.0.1:8000/admin or the location address that Django provides after python manage.py runserver + /admin at the end.
+
+*NOTICE: administrator and user cannot login in the system at the same time. If administrator has logged in the administration's system, the out system will display the superuser that has logged in.
