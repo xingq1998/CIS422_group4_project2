@@ -2,11 +2,20 @@ from django.db import models
 from product.models import Item
 from cart.models import CartItem
 from django.utils import timezone
+from django.contrib import admin
 
 
 class Order(models.Model):
     user_id = models.IntegerField(default=0)
     total_cost = models.FloatField(default=0.0)
+
+    @property
+    @admin.display(
+        ordering='id',
+        description='id of the Order',
+    )
+    def order_id(self):
+        return self.id
 
 
 class OrderedItem(models.Model):
@@ -25,3 +34,11 @@ class OrderedItem(models.Model):
 
     class Meta:
         ordering = ['product_name']
+
+    @property
+    @admin.display(
+        ordering='id',
+        description='Item ID',
+    )
+    def order_item_id(self):
+        return self.id

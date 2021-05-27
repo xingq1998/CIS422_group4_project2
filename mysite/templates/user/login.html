@@ -9,14 +9,30 @@
                 <div class="col-6 offset-3 mb-4">
                     <div class="card mb-4" style="max-width: 800px;">
                         <div class="card-header text-center black-text bg-white">
-                            Login
+                            {% if request.user.is_authenticated %}
+                                UserInfo
+                            {% else %}
+                                Login
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class='col-6 offset-3'>
                     {#                    <h1>{% trans "Login" %}</h1>#}
                     {% if request.user.is_authenticated %}
-                        <p>You have logged in out system.</p>
+                        <ul class="list-group">
+                            <li class="list-group-item active" aria-current="true">User
+                                Name: {{ request.user.username }}</li>
+                            <li class="list-group-item">User ID: {{ request.user.id }}</li>
+                            <li class="list-group-item">User Email: {{ request.user.email }}</li>
+                            <li class="list-group-item">
+                                Type: {% if request.user.is_staff %}
+                                Admin
+                            {% else %}
+                                User
+                            {% endif %}</li>
+                            <li class="list-group-item">Active: {{ request.user.is_active }}</li>
+                        </ul>
                     {% else %}
                         <form class="login" method="POST" action="{% url 'user:login' %}">{% csrf_token %}
                             <div class="mb-3">

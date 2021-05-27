@@ -14,7 +14,7 @@ class CartItem(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return self.product.name
 
     def user_total_price(user_id):
         price = 0
@@ -26,7 +26,7 @@ class CartItem(models.Model):
     @property
     @admin.display(
         ordering='id',
-        description='id of the cart item',
+        description='CartItem id',
     )
     def cart_id(self):
         return self.id
