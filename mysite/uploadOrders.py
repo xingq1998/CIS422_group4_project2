@@ -67,7 +67,7 @@ def main():
             OrderedItem.objects.create(quantity=n, order=created_order, product=item[n])
             n += 1
 
-        if n < 6:
+        if n > 6:
             n = 0
 
 

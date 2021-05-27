@@ -2,12 +2,11 @@
 {% load static %}
 {% block content %}
     <div class="container">
-        <p></p>
         <div class="top-form">
             <form method="POST" action="{% url 'product:all' %}">{% csrf_token %}
                 <div class="row">
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <div class="form-item">
                             <div class="label">Category</div>
                             <div class="input">
@@ -20,6 +19,22 @@
                                     {% endfor %}
 
                                 </select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-item">
+                            <div class="label">Size</div>
+                            <div class="input">
+                                <select
+                                        class="form-select form-select-inline"
+                                        name = "category"
+                                >
+                                        <option value="{{ size }}">Small</option>
+                                        <option value="{{ size }}">Medium</option>
+                                        <option value="{{ size }}">Large</option>   
+                                </select> 
                             </div>
                         </div>
                     </div>
@@ -54,11 +69,27 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
+                                        
                                         <h5 class="card-title">{{ product.name }}</h5>
                                         <p class="card-text">$ {{ product.price|floatformat:2 }}</p>
-
                                         <p class="card-text"><small class="text-muted">Total
                                             Stock: {{ product.total_stock }}</small></p>
+                                        <div class="row-sm-8">
+                                            <div class="label">Size (Availability)</div>
+                                            
+                                                <select
+                                                    class="form-select form-select-inline"
+                                                    name = "category"
+                                                    >
+                                                    <p class="card-text"><small class="text-muted">Size (Availability)</small></p>
+                                                    {% for size in product.size_set.all %}
+                                                        <option value="{{ category }}">{{ size.size_type }} ({{ size.quantity}})</option>
+                                                    {% endfor %}
+
+                                                    </select>   
+                                        
+                                        </div>
+
                                         <p class="card-text"><small
                                                 class="text-muted">Description: {{ product.description }}</small></p>
 

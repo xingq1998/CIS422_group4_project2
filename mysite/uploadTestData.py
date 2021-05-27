@@ -22,7 +22,7 @@ django.setup()
 
 import datetime
 from enum import IntEnum
-from product.models import Item
+from product.models import Item, Size
 
 # CSV input file for clinic locations.
 PRODUCT_INPUT_FILE = r"Test/input_items.csv"
@@ -34,6 +34,7 @@ class InputHeaders(IntEnum):
     DESCRIPTION = 3
     PIC_ADDRESS = 4
     CATEGORY = 5
+    SIZE = 6
 
 def createItem(data_list):
     item_obj = Item.objects.create(
@@ -55,9 +56,21 @@ def main():
         
         for line in fp:
             data = line.rstrip().split(",")
-        
-            item = createItem(data)
 
+            item = createItem(data)
+            
+            size_types = data[InputHeaders.SIZE].split(" ")
+            total_stock = int(item.total_stock)
+            n = 0
+            
+            size_obj = None
+            for size in range(len(size_types) - 1):
+                size_obj = Size.objects.create(product=item, quantity=(total_stock // len(size_types)), size_type=size_types[size])
+                n += total_stock // len(size_types)
+            
+
+            size_obj = Size.objects.create(product=item, quantity=(total_stock - n), size_type=size_types[-1])
+            
 
 if __name__ == "__main__":
     main()

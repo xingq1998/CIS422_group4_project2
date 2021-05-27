@@ -18,8 +18,10 @@ def fetch_orders(request):
         order_set = Order.objects.all().filter(user_id=user_id).all()
         for order in order_set:
             ordereditem_sets[order.id] = order.ordereditem_set.all()
-    return render(request, 'orders/all.html', {"orders": order_set, "ordereditem_sets": ordereditem_sets})
-
+        return render(request, 'orders/all.html', {"orders": order_set, "ordereditem_sets": ordereditem_sets})
+    
+    else:
+        return render(request, 'user/login.html')
 
 def checkout(request):
     if request.user.is_authenticated:
