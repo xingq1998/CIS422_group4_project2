@@ -2,7 +2,6 @@
 
 python manage.py runserver
 
-git test - Done by JW
 
 ### Finished functionalities by Xing
 
@@ -18,3 +17,10 @@ git test - Done by JW
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+## Admin:
+Create superusers using the createsuperuser command:
+```shell
+~/mysite $ python manage.py createsuperuser --username=joe --email=joe@example.com
+```
+Then, setup password for superuser(administrator).
