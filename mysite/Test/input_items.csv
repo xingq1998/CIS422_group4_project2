@@ -1,5 +1,5 @@
 name,price,total_stock,description,pic_address,Category,size
-Blue Shirt,10.00,5,Men's Blue Shirt,img/blue-shirt.jpg,Shirts,small medium large
+Blue Shirt,10.00,0,Men's Blue Shirt,img/blue-shirt.jpg,Shirts,small medium large
 Green Shirt,15.00,7,Unisex Green T-Shirt,img/green-shirt.jpg,Shirts,small large
 Red Shirt,16.00,8,Red T-Shirt,img/red-shirt.jpg,Shirts,small medium
 Yellow Shirt,17.00,9,Yellow T-Shirt,img/yellow-shirt.jpg,Shirts,medium large

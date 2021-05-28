@@ -71,10 +71,16 @@
                                     <div class="card-body">
                                         
                                         <h5 class="card-title">{{ product.name }}</h5>
+                                        
                                         <p class="card-text">$ {{ product.price|floatformat:2 }}</p>
-                                        <p class="card-text"><small class="text-muted">Total
-                                            Stock: {{ product.total_stock }}</small></p>
-                                        <div class="row-sm-8">
+                                        
+                                        {% if product.total_stock > 0 %}
+                                            <p class="card-text"><small class="text-muted">Total
+                                                Stock: {{ product.total_stock }}</small></p>
+                                        {% else %}
+                                        <p class="card-text"><small class="text-muted">Out of Stock</small></p>
+                                        {% endif %}
+                                                <div class="row-sm-8">
                                             <div class="label">Size (Availability)</div>
                                             
                                                 <select
@@ -83,7 +89,11 @@
                                                     >
                                                     <p class="card-text"><small class="text-muted">Size (Availability)</small></p>
                                                     {% for size in product.size_set.all %}
+                                                        {% if size.quantity > 0 %}
                                                         <option value="{{ category }}">{{ size.size_type }} ({{ size.quantity}})</option>
+                                                        {% else %}
+                                                        <option value="{{ category }}">{{ size.size_type }} (Out of Stock)</option>
+                                                        {% endif %}
                                                     {% endfor %}
 
                                                     </select>   
