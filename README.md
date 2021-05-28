@@ -18,12 +18,14 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## Admin:
+## Admin
 Create superusers using the createsuperuser command:
 ```shell
 ~/mysite $ python manage.py createsuperuser --username=joe --email=joe@example.com
 ```
-Then, setup password for superuser(administrator).
+Then, setup password for superuser(administrator) such as password: 123
+Administrator account: joe
+password: 123
 
 Login in superuser at http://127.0.0.1:8000/admin or the location address that Django provides after python manage.py runserver + /admin at the end.
 
