@@ -21,7 +21,7 @@ python manage.py migrate
 ## Admin
 Create superusers using the createsuperuser command:
 ```shell
-~/mysite $ python manage.py createsuperuser --username=joe --email=joe@example.com
+python manage.py createsuperuser --username=joe --email=joe@example.com
 ```
 Then, setup password for superuser(administrator) such as password: 123
 Administrator account: joe
