@@ -27,3 +27,6 @@ class Size(models.Model):
     product = ForeignKey(Item, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=0)
     size_type = CharField(default="N/A", max_length=20)
+
+    def __str__(self):
+        return f"{self.product.name}, {self.size_type}: {self.quantity}"
