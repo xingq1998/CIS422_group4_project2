@@ -1,19 +1,18 @@
 from django.shortcuts import render
 from .models import Item, Size
 
-# Create your views here.
 
 
 def all(request):
+    # The view for all shop products.
     categories = []
     products = Item.objects.all()
 
+    # Filter distinct categories from all Items. 
     for prod in products:
         if prod.category not in categories:
-            #print(prod.category)
             categories.append(prod.category)
 
-    #print(categories)
     return render(request, 'product/all.html', {"products" : products, "categories" : categories})
 
 
