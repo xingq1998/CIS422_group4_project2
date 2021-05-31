@@ -8,6 +8,7 @@ from product.models import Item
 
 class CartItem(models.Model):
     product = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
+    size = models.CharField(default="N/A", max_length=20)
     quantity = models.IntegerField(default=1)
     user_id = models.IntegerField(default=0)
     status = models.IntegerField(default=1)  # 1 represents active,0 represents closed

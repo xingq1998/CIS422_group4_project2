@@ -29,6 +29,7 @@
                                         <h5 class="card-title">{{ cart_item.product.name }}</h5>
                                         <p class="card-text">$ {{ cart_item.product.price }}</p>
                                         <p class="card-text">Ref id: {{ cart_item.id }}</p>
+                                        <p class="card-text">Size: {{ cart_item.size }}</p>
                                         <p class="card-text black-text">Total price: $
                                             {% widthratio cart_item.product.price 1 cart_item.quantity %}.00</p>
                                         <form method="POST" style="margin-left: 1rem"

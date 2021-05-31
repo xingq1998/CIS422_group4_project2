@@ -12,14 +12,14 @@
                             <div class="input">
                                 <select
                                         class="form-select form-select-inline"
-                                        name = "category"
+                                        name="category"
                                 >
                                     {% for category in categories %}
                                         <option value="{{ category }}">{{ category }}</option>
                                     {% endfor %}
 
                                 </select>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -29,12 +29,12 @@
                             <div class="input">
                                 <select
                                         class="form-select form-select-inline"
-                                        name = "size_type"
+                                        name="size_type"
                                 >
-                                        <option value="small">Small</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="large">Large</option>   
-                                </select> 
+                                    <option value="small">Small</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -45,82 +45,98 @@
                     </div>
             </form>
             <form method="GET" action="{% url 'product:all' %}">
-                    <div class="col-auto">
-                        <button 
-                        class="btn btn-primary"
-                        >Reset Filters</button>
-                    </div>
-            </form>
+                <div class="col-auto">
+                    <button
+                            class="btn btn-primary"
+                    >Reset Filters
+                    </button>
                 </div>
-            
+            </form>
         </div>
-        <div class="row">
 
-            <div class="col-sm-8">
-                {% for product in products %}
+    </div>
+    <div class="row">
 
-                    <div class="col-sm-8">
-                        <div class="card mb-4" style="max-width: 800px;">
-                            <div class="card-header d-flex justify-content-between"></div>
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img class="card-img-top" style="margin: 20px"
-                                         src="{% static product.pic_address %}" alt="perfume001 img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        
-                                        <h5 class="card-title">{{ product.name }}</h5>
-                                        
-                                        <p class="card-text">$ {{ product.price|floatformat:2 }}</p>
-                                        
-                                        {% if product.total_stock > 0 %}
-                                            <p class="card-text"><small class="text-muted">Total
-                                                Stock: {{ product.total_stock }}</small></p>
-                                        {% else %}
+        <div class="col-sm-10">
+            {% for product in products %}
+
+                <div class="col-sm-10">
+                    <div class="card mb-4" style="max-width: 800px;">
+                        <div class="card-header d-flex justify-content-between"></div>
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img class="card-img-top" style="margin: 20px"
+                                     src="{% static product.pic_address %}" alt="perfume001 img">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+
+                                    <h5 class="card-title">{{ product.name }}</h5>
+
+                                    <p class="card-text">$ {{ product.price|floatformat:2 }}</p>
+
+                                    {% if product.size_set.count > 0 %}
+                                        <p class="card-text"><small class="text-muted">Avialable Size
+                                            Type: {{ product.size_set.count }} types </small></p>
+                                    {% else %}
                                         <p class="card-text"><small class="text-muted">Out of Stock</small></p>
-                                        {% endif %}
-                                                <div class="row-sm-8">
+                                    {% endif %}
+
+                                    <form method="POST" action="{% url 'cart:add_to_cart' %}">{% csrf_token %}
+
+                                        <div class="row-sm-8">
                                             <div class="label">Size (Availability)</div>
-                                            
-                                                <select
+                                            <select
                                                     class="form-select form-select-inline"
-                                                    name = "category"
-                                                    >
-                                                    <p class="card-text"><small class="text-muted">Size (Availability)</small></p>
-                                                    {% for size in product.size_set.all %}
-                                                        {% if size.quantity > 0 %}
-                                                        <option value="{{ category }}">{{ size.size_type }} ({{ size.quantity}})</option>
-                                                        {% else %}
-                                                        <option value="{{ category }}">{{ size.size_type }} (Out of Stock)</option>
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                    name="size_type">
+                                                {% for size in product.size_set.all %}
+                                                    {% if size.stock > 0 %}
+                                                        <option value="{{ size.size_type }}">{{ size.size_type }}
+                                                            ({{ size.stock }})
+                                                        </option>
+                                                    {% else %}
+                                                        <option disabled
+                                                                value="{{ size.size_type }}">{{ size.size_type }}
+                                                            (Out of Stock)
+                                                        </option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
 
-                                                    </select>   
-                                        
-                                        </div>
-
-                                        <p class="card-text"><small
-                                                class="text-muted">Description: {{ product.description }}</small></p>
-
-                                        <form method="POST" action="{% url 'cart:add_to_cart' %}">{% csrf_token %}
                                             <input type="number" name="product_id"
                                                    class="form-control"
                                                    value="{{ product.id }}" hidden/>
-                                            <div>
-                                                <button type="submit" class="btn btn-primary">Add to cart</button>
-                                            </div>
-                                        </form>
 
-                                    </div>
+                                            <button type="submit" class="btn btn-outline-dark btn-sm"
+                                                    data-mdb-ripple-color="dark">
+                                                Add to cart
+                                            </button>
+
+                                        </div>
+
+                                        <small class="text-muted">
+                                            Category: {{ product.category }}
+                                        </small>
+                                        <p class="card-text"
+                                           class="text-muted">Description: {{ product.description }}</p>
+
+                                        <input type="number" name="product_id"
+                                               class="form-control"
+                                               value="{{ product.id }}" hidden/>
+                                        {#                                        <div>#}
+                                        {#                                            <button type="submit" class="btn btn-primary">Add to cart</button>#}
+                                        {#                                        </div>#}
+                                    </form>
 
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
+    </div>
     </div>
 {% endblock content %}

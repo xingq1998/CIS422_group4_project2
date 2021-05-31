@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import CartItem
 from product.models import Item
-from django.db.models import F
+from django.db.models import F, Sum
 
 
 def index(request):
@@ -56,8 +56,10 @@ def addtoCart(request):
     if request.method == 'POST':
         post_dict = request.POST
         product_id = int(post_dict.get("product_id", "0"))
+        size_type = post_dict.get("size_type", "small")
+        print("size_type", size_type)
         product = Item.objects.get(id=product_id)
-        cart_item, created = CartItem.objects.get_or_create(user_id=user_id, product=product,
+        cart_item, created = CartItem.objects.get_or_create(user_id=user_id, product=product, size=size_type,
                                                             defaults={
                                                                 # 'name': product.name,
                                                                 # 'desc': product.description,
@@ -67,7 +69,12 @@ def addtoCart(request):
                                                                 # 'pic_address': product.pic_address,
                                                                 'quantity': 0})
         CartItem.objects.filter(id=cart_item.id).update(quantity=F('quantity') + 1)
-        Item.objects.filter(id=product_id).update(total_stock=F('total_stock') - 1)
+
+        product.size_set.filter(size_type=size_type).update(stock=F('stock') - 1)
+        print('stock_sum', product.size_set.aggregate(Sum('stock')))
+        if product.size_set.aggregate(Sum('stock'))['stock__sum'] == 0:
+            product.sold_out = True
+            product.save()
 
     return redirect('/cart/fetch_user_cart')
 
@@ -75,12 +82,31 @@ def addtoCart(request):
 def updateCartItem(request):
     if request.method == 'POST':
         post_dict = request.POST
-        print(post_dict)
         quantity = int(post_dict.get("quantity", ""))
-        cart_item_id = int(post_dict.get("cart_item_id", 0))  # need to fix, current user id
+        cart_item_id = int(post_dict.get("cart_item_id", 0))
         cart_item = CartItem.objects.get(id=cart_item_id)
-        CartItem.objects.filter(id=cart_item_id).update(quantity=quantity)
-        Item.objects.filter(id=cart_item.product.id).update(total_stock=F('total_stock') + quantity)
+        product = cart_item.product
+        size_type = cart_item.size
+        origin_quantity = cart_item.quantity
+        product_stock = product.size_set.get(size_type=size_type).stock
+
+        updated_quantity = min(quantity, product_stock + origin_quantity)
+
+        left_stock = product_stock+origin_quantity - updated_quantity
+
+        CartItem.objects.filter(id=cart_item_id).update(quantity=updated_quantity)
+        product.size_set.filter(size_type=size_type).update(stock=left_stock)
+
+        print('updated_quantity', updated_quantity, quantity, product_stock)
+
+        if left_stock > 0 and product.sold_out:
+            product.sold_out = False
+            product.save()
+
+        if left_stock == 0 and not product.sold_out:
+            product.sold_out = True
+            product.save()
+
         return redirect('/cart/fetch_user_cart')
 
 
@@ -88,6 +114,12 @@ def removefromCart(request, car_item_id):
     cart_item = CartItem.objects.get(id=car_item_id)
     product_id = cart_item.product_id
     CartItem.objects.filter(id=car_item_id).delete()
-    Item.objects.filter(id=product_id).update(total_stock=F('total_stock') + cart_item.quantity)
+    size_type = cart_item.size
+    product = cart_item.product
+    product.size_set.filter(size_type=size_type).update(stock=F('stock') + cart_item.quantity)
+
+    if product.sold_out:
+        product.sold_out = False
+        product.save()
 
     return redirect('/cart/fetch_user_cart')

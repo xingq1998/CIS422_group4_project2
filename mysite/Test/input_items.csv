@@ -1,10 +1,10 @@
-name,price,total_stock,description,pic_address,Category,size
-Blue Shirt,10.00,0,Men's Blue Shirt,img/blue-shirt.jpg,Shirts,small medium large
-Green Shirt,15.00,7,Unisex Green T-Shirt,img/green-shirt.jpg,Shirts,small large
-Red Shirt,16.00,8,Red T-Shirt,img/red-shirt.jpg,Shirts,small medium
-Yellow Shirt,17.00,9,Yellow T-Shirt,img/yellow-shirt.jpg,Shirts,medium large
-Jeans,20.00,9,Men's Regular Jeans,img/mens-jeans.jpg,Men's Jeans,small medium large
-Red Jeans,25.00,7,Women's Skinny Red Jeans,img/womens-red-jeans.jpg,Women's Jeans,small medium large
-Brown Jacket,35.00,9,Brown Jacket,img/brown-jacket.jpg,Jackets,small medium large
-Women's Black Jacket,35.00,2,Warm Black Jacket,img/women-black-jacket.jpg,Women's Jackets,small medium large
-Grey SweatPants,25.00,7,Grey Sweat Pants,img/grey-sweatpants.jpeg,Pants,small medium large
+name,price,total_stock,description,pic_address,Category,size,Small,Medium,Large
+Blue Shirt,10.00,0,Men's Blue Shirt,img/blue-shirt.jpg,Shirts,small medium large,2,3,4
+Green Shirt,15.00,7,Unisex Green T-Shirt,img/green-shirt.jpg,Shirts,small large,3,0,5
+Red Shirt,16.00,8,Red T-Shirt,img/red-shirt.jpg,Shirts,small medium,3,3,0
+Yellow Shirt,17.00,9,Yellow T-Shirt,img/yellow-shirt.jpg,Shirts,medium large,0,6,0
+Jeans,20.00,9,Men's Regular Jeans,img/mens-jeans.jpg,Men's Jeans,small medium large,5,6,3
+Red Jeans,25.00,7,Women's Skinny Red Jeans,img/womens-red-jeans.jpg,Women's Jeans,small medium large,2,4,3
+Brown Jacket,35.00,9,Brown Jacket,img/brown-jacket.jpg,Jackets,small medium large,7,6,5
+Women's Black Jacket,35.00,2,Warm Black Jacket,img/women-black-jacket.jpg,Women's Jackets,small medium large,7,10,6
+Grey SweatPants,25.00,7,Grey Sweat Pants,img/grey-sweatpants.jpeg,Pants,small medium large,5,9,6

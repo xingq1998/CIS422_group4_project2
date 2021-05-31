@@ -5,10 +5,10 @@ from cart.models import CartItem
 
 @admin.register(CartItem)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('cart_id', 'user_id', 'username', 'product_id', 'product_name', 'product_price', 'quantity',
+    list_display = ('cart_id', 'user_id', 'username', 'product_id', 'product_name', 'product_price', 'size', 'quantity',
                     'status', 'created_at')
     list_editable = ('status', 'user_id', 'quantity')
-    list_filter = ('status', 'user_id', 'product_id')
+    list_filter = ('status', 'user_id', 'product_id', 'size')
     fields = ('product', 'quantity', 'user_id', 'status', 'created_at')
     empty_value_display = '-empty-'
 
