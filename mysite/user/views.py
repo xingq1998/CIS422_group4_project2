@@ -14,11 +14,17 @@ def my_signup(request):
     if request.method == 'POST':
         post_dict = request.POST
         username = post_dict.get("username", "")
-        email = post_dict.get("email", "")
-        password = post_dict.get("password", "")
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.save()
-        return render(request, 'user/login.html', None)
+        try:
+            print("my_signup", User.objects.get(username=username))
+            user = User.objects.get(username=username)
+            return render(request, 'user/signup.html',
+                          {"error": "The username you entered has already been taken. Please try another username."})
+        except User.DoesNotExist:
+            email = post_dict.get("email", "")
+            password = post_dict.get("password", "")
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            return render(request, 'user/login.html', None)
     else:
         return render(request, 'user/signup.html', None)
 

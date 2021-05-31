@@ -18,6 +18,9 @@
                     {% if request.user.is_authenticated %}
                         <p>You have logged in out system.</p>
                     {% else %}
+                        {% if error %}
+                            <p style="color: red;">{{ error }}</p>
+                        {% endif %}
                         <form class="login" method="POST" action="{% url 'user:signup' %}">{% csrf_token %}
                             <div class="mb-3">
                                 <label for="loginInputUsername" class="form-label">Username</label>
