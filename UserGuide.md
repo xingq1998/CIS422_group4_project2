@@ -76,11 +76,14 @@ only your user account and their total costs.
 
 Login in superuser at http://127.0.0.1:8000/admin or the location address that Django provides after python manage.py runserver + /admin at the end using the username and password generated in step 6 of the Readme.md file.
 
-*NOTICE: administrator and user cannot login in the system at the same time. If administrator has logged in the administration's system, the out system will display the superuser that has logged in.
+By following step 6 of Readme.md, you will get
+```
+Username: joe
+Password: 123
+```
+After logining in the adminstration site, superusers are permitted to edit or delete items in both CART and ORDERS, create new user accounts, or add items to PRODUCT.
 
-
-
-
+*NOTICE: administrator and user cannot login in the system at the same time. If administrator has logged in the administration's system, the out system will display the superuser that has logged in. If you want to switch from a super user to a normal user, please make sure to log out of the super user before logging in as a normal user.
 <p>&nbsp;</p>
 
 
