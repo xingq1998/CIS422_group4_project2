@@ -10,6 +10,9 @@ def index(request):
 
 
 def cartInsert(request):
+    """
+    Initial sample cart item creation API for developer testing.
+    """
     if request.user.is_authenticated:
         user_id = request.user.id
         instances = [CartItem(name='Palm Print Back Graphic T-shirt', price=23, quantity=1, user_id=user_id,
@@ -33,6 +36,11 @@ def cartInsert(request):
 
 
 def fetchUserCart(request):
+    """
+    Fetch all cart items of authenticated user and computed total price.
+    :param request: Check whether the requested user is authenticated and response.
+    :return: Cart item list and total cost.
+    """
     if request.user.is_authenticated:
         user_id = request.user.id
         cart_items = CartItem.objects.all().filter(user_id=user_id, status=1)
@@ -49,6 +57,12 @@ def fetchUserCart(request):
 
 
 def addtoCart(request):
+    """
+    Response POST request and create cart item and add it to authenticated user's shopping cart.
+    :param request: With user and adding-to-cart form parameters.
+    :return: Shopping cart redirecting for authenticated user to display all cart items, otherwise
+             render login page.
+    """
     if not request.user.is_authenticated:
         return render(request, 'user/login.html')
 
@@ -80,6 +94,10 @@ def addtoCart(request):
 
 
 def updateCartItem(request):
+    """
+    Response POST request and update cart items, product size set and product.item instance.
+    :param request: Contain user and update-cart-item form parameters.
+    """
     if request.method == 'POST':
         post_dict = request.POST
         quantity = int(post_dict.get("quantity", ""))
@@ -92,7 +110,7 @@ def updateCartItem(request):
 
         updated_quantity = min(quantity, product_stock + origin_quantity)
 
-        left_stock = product_stock+origin_quantity - updated_quantity
+        left_stock = product_stock + origin_quantity - updated_quantity
 
         CartItem.objects.filter(id=cart_item_id).update(quantity=updated_quantity)
         product.size_set.filter(size_type=size_type).update(stock=left_stock)
@@ -111,6 +129,11 @@ def updateCartItem(request):
 
 
 def removefromCart(request, car_item_id):
+    """
+    Delete cart item, update product size set and product.item instance.
+    :param request: Front-end request.
+    :param car_item_id: The id of cart item which need to be removed.
+    """
     cart_item = CartItem.objects.get(id=car_item_id)
     product_id = cart_item.product_id
     CartItem.objects.filter(id=car_item_id).delete()
