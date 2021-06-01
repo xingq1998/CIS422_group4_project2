@@ -3,7 +3,7 @@
 Welcome to MyFashion Clothing Ecommerce
 
 * Title: ReadME.md
-* Project: MyFahsion Clothing Ecommerce
+* Project: MyFashion Clothing Ecommerce
 * Team: NoMad
 * Course Name: CIS 422
 * Assignment: Project 2
@@ -11,14 +11,14 @@ Welcome to MyFashion Clothing Ecommerce
 
 # Architecture
 
-The website consist of two parts:
+The website consists of two parts:
 
 * A public site that lets users browse and order products.
 * An administrator ability.
 
 # Environment
 
-* database: SQLite
+* Database: SQLite
 * Website framework: django Python 3.7.9
 
 # How to run
