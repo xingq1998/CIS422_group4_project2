@@ -81,7 +81,7 @@ By following step 6 of Readme.md, you will get
 Username: joe
 Password: 123
 ```
-After logining in the adminstration site, superusers are permitted to edit or delete items in both CART and ORDERS, create new user accounts, or add items to PRODUCT.
+After logining in the adminstration site, superusers are permitted to edit or delete items in both CART and ORDERS, create new user accounts, or edit and delete items in PRODUCT. ("add items" of PRODUCT is abandoned.)
 
 *NOTICE: administrator and user cannot login in the system at the same time. If administrator has logged in the administration's system, the out system will display the superuser that has logged in. If you want to switch from a super user to a normal user, please make sure to log out of the super user before logging in as a normal user.
 <p>&nbsp;</p>
